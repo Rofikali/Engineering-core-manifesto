@@ -1,0 +1,117 @@
+# 🧠 Arch Linux Setup in GitHub Codespaces — Full Workflow
+
+## 📌 Overview
+This document records the complete process of setting up an Arch Linux environment inside GitHub Codespaces, configuring Git, resolving system ownership issues, and successfully pushing code.
+
+---
+
+## ⚙️ 1. Environment Setup
+
+### 🔹 Update System
+```bash
+sudo pacman -Syu
+```
+* `-S` — Sync and install packages
+* `-y` — Refresh the local package database
+* `-u` — Upgrade all out-of-date system packages
+
+### 🔹 Install Core Development Tools
+```bash
+# Core tools, pagers, and version control
+sudo pacman -S base-devel git neovim less git-lfs cmake ninja perf
+
+# Initialize Git Large File Storage (LFS)
+git lfs install
+```
+* `base-devel` — Compilers and essential build tools
+* `neovim` — Text editor
+* `less` — Fixes the Git pager error: `cannot run less: No such file or directory`
+
+---
+
+## 🧠 2. Codespaces Architecture Notes
+* **Containerized Userspace:** Runs Arch userspace inside a Docker container.
+* **Shared Kernel:** Uses the host system's kernel (no real independent boot sequence).
+* **Service Limits:** Systemd and standard system init services are disabled by default.
+
+---
+
+## 🔐 3. Troubleshooting & Git Fixes
+
+### 🚫 Issue: "Dubious Ownership" Error
+```text
+fatal: detected dubious ownership in repository
+```
+* **Reason:** The repository files are owned by UID 1000 (host), but the container user runs as root. Git blocks mismatched ownership for security.
+* **Fix:**
+  ```bash
+  git config --global --add safe.directory /workspaces/SecureCleaner-Kernel
+  ```
+
+### 🚫 Issue: "Author Identity Unknown"
+```text
+fatal: unable to auto-detect email address
+```
+* **Fix:**
+  ```bash
+  git config --global user.name "Rofik"
+  git config --global user.email "alirofikr@gmail.com"
+  ```
+
+### 🚫 Issue: Git LFS Hook Failure
+```text
+Git LFS not found (pre-push hook failed)
+```
+* **Fix:** Ensure `git-lfs` is installed via pacman and initialized globally.
+  ```bash
+  sudo pacman -S git-lfs && git lfs install
+  ```
+
+---
+
+## 🚀 4. Git Workflow & Authentication
+
+### Standard Deployment
+```bash
+git add .
+git commit -m "chore: update environment to Arch Linux"
+git push
+```
+
+### 🔑 Authentication Rule
+When prompted for credentials during a push:
+* **Username:** Your GitHub username
+* **Password:** Your **Personal Access Token (PAT)** — *never use your account password*.
+
+---
+
+## 📊 5. Key Comparisons & Realities
+
+### Quick Command Reference
+
+| Action | Debian/Ubuntu | Arch Linux |
+| :--- | :--- | :--- |
+| **Update Database** | `apt update` | ❌ *Do not use partial sync* |
+| **Upgrade System** | `apt upgrade` | `pacman -Syu` ✅ |
+| **Install Package** | `apt install <pkg>` | `pacman -S <pkg>` ✅ |
+
+### ⚠️ Common Pitfalls to Avoid
+* **Partial Upgrades:** Running `pacman -Sy` without `u` can break package dependencies.
+* **User Mixing:** Running configurations as `root` vs a custom user will split Git config scopes.
+* **Missing Pager:** Forgetting to install `less` breaks verbose Git logs and diffs.
+
+---
+
+## 🏁 Final System State
+* ✅ Arch Linux running inside containerized cloud system
+* ✅ All core build toolchains (`cmake`, `ninja`, `perf`) available
+* ✅ Git security policies, identity, and LFS hooks resolved
+* ✅ Successful remote repository synchronization
+
+---
+
+## 🚀 Next Steps
+* [ ] Convert this workflow into a reproducible `.devcontainer/devcontainer.json` configuration.
+* [ ] Optimize the build toolchain caching.
+* [ ] Setup a target CI/CD test pipeline.
+* [ ] Migrate away from the root user dependency to a dedicated non-root user.
