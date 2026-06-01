@@ -194,30 +194,36 @@ A system's deployment is simply the first 5% of its overall lifecycle. A Princip
     *   *Pros*: Keeps the overall platform lean, nimble, and highly cost-efficient; eliminates decades-old technical debt from rotting in production.
     *   *Cons*: Requires continuous organizational negotiation to force slow-moving client teams to upgrade their API integrations.
 
-principal-engineering-playbook/
-│
-├── .github/                     # GitHub-specific automation & community files
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── feature_request.md
-│   │   └── bug_report.md
-│   └── CODEOWNERS               # Restrict sign-offs for core architecture files
-│
-├── ARCHITECTURE_PLAYBOOK.md     # Lifecycle & Non-Negotiables
-├── CONTRIBUTING.md              # How other engineers propose new patterns
-├── LICENSE                      # Legal terms (e.g., MIT)
-├── README.md                    # Main landing page & visual directory
-│
-├── 🏛️ HLD-PATTERNS/             # Global system-to-system blueprints
-│   ├── event-driven.md
-│   ├── cache-aside.md
-│   └── database-topologies.md
-│
-├── 📐 LLD-BLUEPRINTS/           # Code-level structures & design patterns
-│   ├── creational/
-│   ├── structural/
-│   └── behavioral/
-│
-└── 📋 PROJECT-TEMPLATES/        # Drop-in boilerplate files for new repos
-    ├── ADR-TEMPLATE.md
-    └── PR-TEMPLATE.md
+# Principal Engineering Playbook
 
+Welcome to the engineering source of truth. This repository serves as the definitive guide for system design, code patterns, and quality gates across our engineering organization.
+
+## 🗺️ Repository Map
+
+### 📐 [Core Architecture Playbook](ARCHITECTURE_PLAYBOOK.md)
+Our engineering non-negotiables, lifecycle standards, and architectural pillars. Start here before writing any design docs.
+
+### 🏛️ [High-Level Design (HLD) Patterns](🏛️%20HLD-PATTERNS/)
+Global system-to-system blueprints and distributed system topologies.
+* [Event-Driven Architecture](🏛️%20HLD-PATTERNS/event-driven.md)
+* [Cache-Aside Pattern](🏛️%20HLD-PATTERNS/cache-aside.md)
+* [Database Topologies](🏛️%20HLD-PATTERNS/database-topologies.md)
+
+### 📐 [Low-Level Design (LLD) Blueprints](📐%20LLD-BLUEPRINTS/)
+Code-level structural patterns and concrete implementation structures.
+* **[Creational](📐%20LLD-BLUEPRINTS/creational/)**: Factory, Singleton, Builder
+* **[Structural](📐%20LLD-BLUEPRINTS/structural/)**: Adapter, Facade, Decorator
+* **[Behavioral](📐%20LLD-BLUEPRINTS/behavioral/)**: Observer, Strategy, Command
+
+### 📋 [Project Templates](📋%20PROJECT-TEMPLATES/)
+Drop-in boilerplate files to standardize new repositories.
+* [Architecture Decision Record (ADR) Template](📋%20PROJECT-TEMPLATES/ADR-TEMPLATE.md)
+* [Pull Request (PR) Template](📋%20PROJECT-TEMPLATES/PR-TEMPLATE.md)
+
+---
+
+## 🚀 How to Use This Playbook
+
+1. **Bootstrap New Repos:** Copy the templates inside `📋 PROJECT-TEMPLATES/` into your new service repositories.
+2. **Review Designs:** Validate your RFCs and system designs against the active blueprints in `🏛️ HLD-PATTERNS/`.
+3. **Contribute:** Found a better way to scale or structure code? Review our [Contribution Guidelines](CONTRIBUTING.md) to propose a change.
