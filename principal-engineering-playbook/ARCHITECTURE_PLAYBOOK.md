@@ -193,3 +193,31 @@ A system's deployment is simply the first 5% of its overall lifecycle. A Princip
 *   **Trade-off Matrix**:
     *   *Pros*: Keeps the overall platform lean, nimble, and highly cost-efficient; eliminates decades-old technical debt from rotting in production.
     *   *Cons*: Requires continuous organizational negotiation to force slow-moving client teams to upgrade their API integrations.
+
+principal-engineering-playbook/
+│
+├── .github/                     # GitHub-specific automation & community files
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── feature_request.md
+│   │   └── bug_report.md
+│   └── CODEOWNERS               # Restrict sign-offs for core architecture files
+│
+├── ARCHITECTURE_PLAYBOOK.md     # Lifecycle & Non-Negotiables
+├── CONTRIBUTING.md              # How other engineers propose new patterns
+├── LICENSE                      # Legal terms (e.g., MIT)
+├── README.md                    # Main landing page & visual directory
+│
+├── 🏛️ HLD-PATTERNS/             # Global system-to-system blueprints
+│   ├── event-driven.md
+│   ├── cache-aside.md
+│   └── database-topologies.md
+│
+├── 📐 LLD-BLUEPRINTS/           # Code-level structures & design patterns
+│   ├── creational/
+│   ├── structural/
+│   └── behavioral/
+│
+└── 📋 PROJECT-TEMPLATES/        # Drop-in boilerplate files for new repos
+    ├── ADR-TEMPLATE.md
+    └── PR-TEMPLATE.md
+
